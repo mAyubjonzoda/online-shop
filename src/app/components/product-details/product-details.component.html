@@ -1,1 +1,21 @@
-<p>product-details works!</p>
+<div class="container">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="product.image" [alt]="product.name" />
+    <mat-card-content>
+      <p>{{ product.price }} so'm</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button>В корзину</button>
+    </mat-card-actions>
+  </mat-card>
+  <ul>
+    <li *ngFor="let key of getKeys(product.features)">
+      <div class="features_name">
+        {{ key }}: <span>{{ product.features[key] }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,1 +1,27 @@
-<div class="container"></div>
+<mat-toolbar *ngIf="canEdit">
+  <mat-toolbar-row>
+    <span class="example-spacer"></span>
+    <button class="button" mat-flat-button color="basic" (click)="openDialog()">
+      Добавить Товар
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+  @for (product of products; track $index) {
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="product.image" [alt]="product.name" />
+    <mat-card-content>
+      <p>{{ product.price }} so'm</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button>В корзину</button>
+      <button mat-flat-button [routerLink]="['/product', product.id]">
+        Подробнее
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>
