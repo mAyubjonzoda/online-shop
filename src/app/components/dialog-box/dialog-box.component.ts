@@ -29,13 +29,22 @@ export class DialogBoxComponent {
     name: new FormControl(),
     price: new FormControl(),
     image: new FormControl(),
+    // id: new FormControl(),
   });
 
   public dialogRef = inject(MatDialogRef<DialogBoxComponent>);
   @Inject(MAT_DIALOG_DATA) public data: any;
 
   onSubmit() {
+    this.data = {
+      name: this.myForm.value.name,
+      price: this.myForm.value.price,
+      image: `/assets/images/${this.myForm.value.image}`,
+      // id: this.myForm.value.id,
+    };
+
     console.log(this.myForm);
+    this.dialogRef.close(this.data);
   }
 
   onNoClick(): void {

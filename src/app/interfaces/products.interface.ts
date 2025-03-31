@@ -2,6 +2,6 @@ export interface IProduct {
   name: string;
   price: number;
   image: string;
-  id: string;
+  id: number;
   features: object;
 }

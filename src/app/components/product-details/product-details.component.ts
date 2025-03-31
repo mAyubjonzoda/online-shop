@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../interfaces/products.interface';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [MatCardModule, RouterLink, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })

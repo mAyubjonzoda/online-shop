@@ -10,9 +10,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-products',
-  imports: [MatCardModule, MatButtonModule, NgIf, MatToolbarModule, RouterLink],
+  imports: [
+    MatCardModule,
+    MatMenuModule,
+    MatButtonModule,
+    NgIf,
+    MatToolbarModule,
+    RouterLink,
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -42,6 +50,26 @@ export class ProductsComponent implements OnInit, OnDestroy {
     dialogConfig.width = '500px';
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((data) => {
+      this.postData(data);
+    });
+  }
+
+  postData(data: IProduct) {
+    this.productsService.postProduct(data).subscribe((data) => {
+      this.products.push(data);
+    });
+  }
+  deleteItem(id: any) {
+    console.log(id);
+    this.productsService.deleteProduct(id).subscribe(() =>
+      this.products.find((item) => {
+        if (id === item.id) {
+          let idx = this.products.findIndex((data) => data.id === id);
+          this.products.splice(idx, 1);
+        }
+      })
+    );
   }
   ngOnDestroy(): void {
     if (this.productSubscription) this.productSubscription.unsubscribe();
