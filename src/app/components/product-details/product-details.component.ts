@@ -13,15 +13,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-details.component.scss',
 })
 export class ProductDetailsComponent implements OnInit {
-  product: any;
+  product: IProduct;
   productSubscription: Subscription;
   constructor(private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.productSubscription = this.route.data.subscribe((data) => {
       this.product = data['data'];
     });
-  }
-  getKeys(obj: any): string[] {
-    return Object.keys(obj);
   }
 }

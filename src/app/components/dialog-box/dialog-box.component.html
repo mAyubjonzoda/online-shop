@@ -11,12 +11,18 @@
     <mat-label>Image</mat-label>
     <input matInput formControlName="image" placeholder="Image" />
   </mat-form-field>
-  <!-- <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width">
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="description" placeholder="Description" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
     <mat-label>Id</mat-label>
     <input matInput formControlName="id" placeholder="Id" />
-  </mat-form-field> -->
+  </mat-form-field>
   <button class="button mr-5" mat-flat-button type="submit">
-    Добавить товар
+    {{ isNew ? "Добавить товар" : "Обновить" }}
   </button>
-  <button class="button" mat-flat-button (click)="onNoClick()">Отмена</button>
+  <button class="button" mat-flat-button (click)="onNoClick()" type="button">
+    Отмена
+  </button>
 </form>

@@ -1,1 +1,18 @@
-<p>basket works!</p>
+<div class="container">
+  @for (item of basket; track $index) {
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ item.name }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="item.image" [alt]="item.name" />
+    <mat-card-content>
+      <p>{{ item.price }} so'm</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button>-</button>
+      <p>Колво:</p>
+      <button mat-flat-button>+</button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>

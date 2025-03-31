@@ -3,5 +3,6 @@ export interface IProduct {
   price: number;
   image: string;
   id: number;
-  features: object;
+  description: string;
+  quantity?: number;
 }

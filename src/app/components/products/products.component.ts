@@ -45,13 +45,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
       });
   }
 
-  openDialog(): void {
+  addToBasket(product: IProduct) {
+    this.productsService
+      .postProductToBasket(product)
+      .subscribe((data) => console.log(data));
+  }
+
+  openDialog(product?: IProduct): void {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     dialogConfig.disableClose = true;
+    dialogConfig.data = product;
     const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((data) => {
-      this.postData(data);
+      if (data) {
+        if (data && data.id) this.updateData(data);
+        else this.postData(data);
+      }
     });
   }
 
@@ -60,6 +70,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.products.push(data);
     });
   }
+
+  updateData(product: IProduct) {
+    this.productsService.updateProduct(product).subscribe((data) => {
+      this.products = this.products.map((product) => {
+        if (product.id === data.id) {
+          return data;
+        } else {
+          return product;
+        }
+      });
+    });
+  }
+
   deleteItem(id: any) {
     console.log(id);
     this.productsService.deleteProduct(id).subscribe(() =>
@@ -71,6 +94,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
     );
   }
+
   ngOnDestroy(): void {
     if (this.productSubscription) this.productSubscription.unsubscribe();
   }

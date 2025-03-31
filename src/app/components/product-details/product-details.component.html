@@ -11,11 +11,9 @@
       <button mat-flat-button>В корзину</button>
     </mat-card-actions>
   </mat-card>
-  <ul>
-    <li *ngFor="let key of getKeys(product.features)">
-      <div class="features_name">
-        {{ key }}: <span>{{ product.features[key] }}</span>
-      </div>
-    </li>
-  </ul>
+  <div class="description">
+    <h3>Описание</h3>
+
+    {{ product.description }}
+  </div>
 </div>

@@ -8,6 +8,7 @@ import { map } from 'rxjs';
 })
 export class ProductsService {
   url: string = 'http://localhost:3000/products';
+  urlBasket: string = 'http://localhost:3000/basket';
   constructor(private http: HttpClient) {}
 
   getProducts() {
@@ -19,7 +20,20 @@ export class ProductsService {
   postProduct(product: IProduct) {
     return this.http.post<IProduct>(this.url, product);
   }
+
+  updateProduct(product: IProduct) {
+    return this.http.put<IProduct>(`${this.url}/${product.id}`, product);
+  }
+
   deleteProduct(id: any) {
     return this.http.delete<any>(`${this.url}/${id}`);
+  }
+
+  postProductToBasket(product: IProduct) {
+    return this.http.post<IProduct>(this.urlBasket, product);
+  }
+
+  getProductFromBasket() {
+    return this.http.get<IProduct[]>(this.urlBasket);
   }
 }

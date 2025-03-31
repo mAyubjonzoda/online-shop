@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%;
+  padding: 2%;
+  padding-top: 0;
+  padding-bottom: calc(64px + 2%);
+}
+.example-card {
+  max-width: 48%;
+  background-color: #333;
+  margin-top: 2%;
+}
+@media (min-width: 768px) {
+  .example-card {
+    max-width: 31%;
+  }
+}
+
+mat-card-content,
+mat-card-title {
+  color: white;
+}
+mat-card-actions {
+  display: flex;
+  gap: 10px;
+}
+mat-card-actions {
+  z-index: 0;
+}
