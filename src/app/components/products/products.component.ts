@@ -8,7 +8,7 @@ import { ProductsService } from '../../services/products.service';
 import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 @Component({
   selector: 'app-products',
@@ -38,7 +38,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogBoxComponent);
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(DialogBoxComponent, dialogConfig);
   }
   ngOnDestroy(): void {
     if (this.productSubscription) this.productSubscription.unsubscribe();
