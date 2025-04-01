@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { BasketService } from '../../services/basket.service';
 @Component({
   selector: 'app-products',
   imports: [
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   canEdit: boolean = false;
   constructor(
     private productsService: ProductsService,
+    private basketService: BasketService,
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.products = data;
       });
-    this.basketSubscription = this.productsService
+    this.basketSubscription = this.basketService
       .getProductFromBasket()
       .subscribe((data) => {
         this.basket = data;
@@ -64,14 +66,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   postToBasket(product: IProduct) {
-    this.productsService
-      .postProductToBasket(product)
+    this.basketService
+      .addProductToBasket(product)
       .subscribe((data) => this.basket.push(data));
   }
 
   updateToBasket(product: IProduct) {
     product.quantity += 1;
-    this.productsService.updateProductToBasket(product).subscribe((data) => {});
+    this.basketService.updateProductToBasket(product).subscribe((data) => {});
   }
   openDialog(product?: IProduct): void {
     let dialogConfig = new MatDialogConfig();
@@ -87,8 +89,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  postData(data: IProduct) {
-    this.productsService.postProduct(data).subscribe((data) => {
+  postData(product: IProduct) {
+    this.productsService.addProduct(product).subscribe((data) => {
       this.products.push(data);
     });
   }
