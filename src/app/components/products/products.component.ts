@@ -27,8 +27,9 @@ import { MatMenuModule } from '@angular/material/menu';
 export class ProductsComponent implements OnInit, OnDestroy {
   products: IProduct[];
   productSubscription: Subscription;
+  basket: IProduct[];
+  basketSubscription: Subscription;
   canEdit: boolean = false;
-  canView: boolean = false;
   constructor(
     private productsService: ProductsService,
     public dialog: MatDialog
@@ -43,14 +44,35 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.products = data;
       });
+    this.basketSubscription = this.productsService
+      .getProductFromBasket()
+      .subscribe((data) => {
+        this.basket = data;
+      });
   }
 
   addToBasket(product: IProduct) {
-    this.productsService
-      .postProductToBasket(product)
-      .subscribe((data) => console.log(data));
+    product.quantity = 1;
+
+    let findItem;
+
+    if (this.basket.length > 0) {
+      findItem = this.basket.find((item) => item.id === product.id);
+      if (findItem) this.updateToBasket(findItem);
+      else this.postToBasket(product);
+    } else this.postToBasket(product);
   }
 
+  postToBasket(product: IProduct) {
+    this.productsService
+      .postProductToBasket(product)
+      .subscribe((data) => this.basket.push(data));
+  }
+
+  updateToBasket(product: IProduct) {
+    product.quantity += 1;
+    this.productsService.updateProductToBasket(product).subscribe((data) => {});
+  }
   openDialog(product?: IProduct): void {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
@@ -97,5 +119,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.productSubscription) this.productSubscription.unsubscribe();
+    if (this.basketSubscription) this.basketSubscription.unsubscribe();
   }
 }

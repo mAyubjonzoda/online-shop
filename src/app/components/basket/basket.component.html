@@ -9,10 +9,11 @@
       <p>{{ item.price }} so'm</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button>-</button>
-      <p>Колво:</p>
-      <button mat-flat-button>+</button>
+      <button mat-flat-button (click)="minusItemFromBasket(item)">-</button>
+      <p style="color: white">Колво: {{ item.quantity }}</p>
+      <button mat-flat-button (click)="plusItemFromBasket(item)">+</button>
     </mat-card-actions>
   </mat-card>
   }
 </div>
+<div *ngIf="basket?.length === 0" class="empty-cart">В корзине пока пусто</div>

@@ -36,4 +36,12 @@ export class ProductsService {
   getProductFromBasket() {
     return this.http.get<IProduct[]>(this.urlBasket);
   }
+
+  updateProductToBasket(product: IProduct) {
+    return this.http.put<IProduct>(`${this.urlBasket}/${product.id}`, product);
+  }
+
+  deleteProductFromBasket(id: any) {
+    return this.http.delete<any>(`${this.urlBasket}/${id}`);
+  }
 }

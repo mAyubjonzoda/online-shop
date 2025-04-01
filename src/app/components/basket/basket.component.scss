@@ -28,3 +28,9 @@ mat-card-actions {
 mat-card-actions {
   z-index: 0;
 }
+.empty-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}

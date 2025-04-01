@@ -4,5 +4,5 @@ export interface IProduct {
   image: string;
   id: number;
   description: string;
-  quantity?: number;
+  quantity: number;
 }
